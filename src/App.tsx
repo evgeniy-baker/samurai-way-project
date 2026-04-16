@@ -3,13 +3,20 @@ import './App.css'
 import { tracksApi } from './api/tracksApi.ts'
 
 function App() {
+  const [tracks, setTracks] = useState([])
+  const [selectedTrack, setSelectedTrack] = useState(null)
+  const [selectedTrackId, setSelectedTrackId] = useState(null)
+
   useEffect(() => {
     tracksApi.getTracks().then((res) => setTracks(res.data.data))
   }, [])
 
-  const [selectedTrack, setSelectedTrack] = useState(null)
-  const [selectedTrackId, setSelectedTrackId] = useState(null)
-  const [tracks, setTracks] = useState(null)
+  useEffect(() => {
+    if (!selectedTrackId) {
+      return
+    }
+    tracksApi.getTrack(selectedTrackId).then((res) => setSelectedTrack(res.data.data))
+  }, [selectedTrackId])
 
   if (tracks === null) {
     return (
@@ -49,7 +56,6 @@ function App() {
               <div
                 onClick={() => {
                   setSelectedTrackId(track.id)
-                  tracksApi.getTrack(track.id).then((res) => setSelectedTrack(res.data.data))
                 }}
               >
                 {track.attributes.title}
