@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { tracksApi } from './api/tracksApi.ts'
+import { TrackDetail } from './components/TrackDetail.tsx'
+import { PageTitle } from './components/PageTitle.tsx'
 
 function App() {
   const [tracks, setTracks] = useState([])
@@ -43,14 +45,15 @@ function App() {
 
   return (
     <div>
-      <h1>Musicfun</h1>
+      <PageTitle />
+
       <div style={{ display: 'flex' }}>
         <ul>
           {tracks.map((track) => (
             <li
               key={track.id}
               style={{
-                border: selectedTrack?.id === track.id ? '1px solid orange' : '',
+                border: selectedTrackId === track.id ? '1px solid orange' : '',
               }}
             >
               <div
@@ -64,12 +67,14 @@ function App() {
             </li>
           ))}
         </ul>
+        {/*<TracksList />*/}
 
-        <h3>
-          Details
-          {!selectedTrack && 'Track is not selected'}
-          {selectedTrack && <h3>{selectedTrack.attributes.title}</h3>}
-        </h3>
+        {/*<h3>*/}
+        {/*  Details*/}
+        {/*  {!selectedTrack && 'Track is not selected'}*/}
+        {/*  {selectedTrack && <h3>{selectedTrack.attributes.title}</h3>}*/}
+        {/*</h3>*/}
+        <TrackDetail selectedTrackId={selectedTrackId} />
       </div>
     </div>
   )
