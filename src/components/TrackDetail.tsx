@@ -2,24 +2,24 @@ import { useEffect, useState } from 'react'
 import { tracksApi } from '../api/tracksApi.ts'
 
 type PropsType = {
-  selectedTrackId: string | null
+  trackId: string | null
 }
 
-export const TrackDetail = ({ selectedTrackId }: PropsType) => {
-  const [selectedTrack, setSelectedTrack] = useState(null)
+export const TrackDetail = ({ trackId }: PropsType) => {
+  const [selectedTrack, setSelectedTrack] = useState(trackId)
 
   useEffect(() => {
-    if (!selectedTrackId) {
+    if (!trackId) {
       return
     }
-    tracksApi.getTrack(selectedTrackId).then((res) => setSelectedTrack(res.data.data))
-  }, [selectedTrackId])
+    tracksApi.getTrack(trackId).then((res) => setSelectedTrack(res.data.data))
+  }, [trackId])
 
   return (
-    <h3>
-      Details
+    <div>
+      <h3>Details</h3>
       {!selectedTrack && 'Track is not selected'}
-      {selectedTrack && <h3>{selectedTrack.attributes.title}</h3>}
-    </h3>
+      {selectedTrack && <span>{selectedTrack.attributes.title}</span>}
+    </div>
   )
 }

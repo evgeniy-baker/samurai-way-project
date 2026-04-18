@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react'
 import { tracksApi } from '../api/tracksApi.ts'
+import { TrackItem } from './TrackItem.tsx'
 
-export const TracksList = () => {
+type PropsType = {
+  onTrackSelected: (trackId: string) => void
+  trackSelected: string
+}
+
+export const TracksList = ({ trackSelected, onTrackSelected }: PropsType) => {
   useEffect(() => {
-    tracksApi.getTracks().then((res) => setTracks(res.data.data))
+    tracksApi.getTracks().then((res) => setTracks(res.data.data)) // Получаем и сетаем загруженные треки
   }, [])
 
   const [tracks, setTracks] = useState([])
-  const [selectedTrackId, setSelectedTrackId] = useState(null)
 
   if (tracks === null) {
     return (
@@ -16,7 +21,6 @@ export const TracksList = () => {
       </div>
     )
   }
-
   if (tracks.length === 0) {
     return (
       <div>
@@ -28,21 +32,12 @@ export const TracksList = () => {
   return (
     <ul>
       {tracks.map((track) => (
-        <li
+        <TrackItem
           key={track.id}
-          style={{
-            border: selectedTrackId === track.id ? '1px solid orange' : '',
-          }}
-        >
-          <div
-            onClick={() => {
-              setSelectedTrackId(track.id)
-            }}
-          >
-            {track.attributes.title}
-          </div>
-          <audio src={track.attributes.attachments[0].url} controls={true}></audio>
-        </li>
+          track={track}
+          isSelected={track.id === trackSelected}
+          onTrackSelected={onTrackSelected}
+        />
       ))}
     </ul>
   )
