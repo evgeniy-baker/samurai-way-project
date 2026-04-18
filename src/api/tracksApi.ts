@@ -1,11 +1,10 @@
 import { instance } from './instance.ts'
-import type { ResponseType } from './types.ts'
 
 export const tracksApi = {
   getTracks() {
-    return instance.get<ResponseType>(`/playlists/tracks`)
+    return instance.get(`/playlists/tracks`)
   },
   getTrack(trackId: string) {
-    return instance.get<ResponseType>(`/playlists/tracks/${trackId}`)
+    return instance.get(`/playlists/tracks/${trackId}`)
   },
 }

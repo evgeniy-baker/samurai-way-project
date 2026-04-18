@@ -1,5 +1,7 @@
+import type { TrackType } from '../api/types.ts'
+
 type PropsType = {
-  track: any
+  track: TrackType
   onTrackSelected: (trackId: string) => void
   isSelected: boolean
 }
