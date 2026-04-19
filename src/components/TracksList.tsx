@@ -4,8 +4,8 @@ import { TrackItem } from './TrackItem.tsx'
 import type { TrackType } from '../api/types.ts'
 
 type PropsType = {
-  onTrackSelected: (trackId: string) => void
-  trackSelected: string
+  onTrackSelected: (trackId: string | null) => void
+  trackSelected: string | null
 }
 
 export const TracksList = ({ trackSelected, onTrackSelected }: PropsType) => {

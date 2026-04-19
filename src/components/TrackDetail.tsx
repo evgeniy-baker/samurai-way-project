@@ -13,10 +13,7 @@ export const TrackDetail = ({ trackId }: PropsType) => {
     if (!trackId) {
       return
     }
-    tracksApi.getTrack(trackId).then((res) => {
-      setSelectedTrack(res.data.data)
-      console.log(res.data.data)
-    })
+    tracksApi.getTrack(trackId).then((res) => setSelectedTrack(res.data.data))
   }, [trackId])
 
   return (

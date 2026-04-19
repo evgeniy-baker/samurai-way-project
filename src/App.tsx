@@ -4,7 +4,7 @@ import { TracksList } from './components/TracksList.tsx'
 import { TrackDetail } from './components/TrackDetail.tsx'
 
 function App() {
-  const [trackId, setTrackId] = useState<string>('')
+  const [trackId, setTrackId] = useState<string | null>('')
 
   return (
     <div style={{ display: 'flex' }}>
