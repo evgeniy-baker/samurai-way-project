@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import { TracksList } from './components/TracksList.tsx'
-import { TrackDetail } from './components/TrackDetail.tsx'
+import { TracksList } from './ui/TracksList.tsx'
+import { TrackDetail } from './ui/TrackDetail.tsx'
 
 function App() {
   const [trackId, setTrackId] = useState<string | null>('')

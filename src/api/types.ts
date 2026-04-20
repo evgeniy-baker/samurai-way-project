@@ -1,4 +1,5 @@
-export type TrackType = {
+export type TrackListItemResource = {
+  // Получение списка треков
   id: 'string'
   type: 'tracks'
   attributes: {
@@ -49,8 +50,8 @@ export type TrackType = {
   }
 }
 
-export type ResponseType = {
-  data: TrackType[]
+export type GetTrackListOutput = {
+  data: TrackListItemResource[]
   meta: {
     page: 0
     pageSize: 0
@@ -67,4 +68,65 @@ export type ResponseType = {
       }
     },
   ]
+}
+
+export type GetTrackDetailsOutput = {
+  data: TrackDetailsResource
+}
+
+export type TrackDetailsResource = {
+  // Получение деталей трека
+  id: 'string'
+  type: 'tracks'
+  attributes: {
+    title: 'string'
+    lyrics: 'string'
+    releaseDate: '2026-04-20T21:27:23.798Z'
+    addedAt: '2026-04-20T21:27:23.798Z'
+    updatedAt: '2026-04-20T21:27:23.798Z'
+    duration: 0
+    likesCount: 0
+    attachments: [
+      {
+        id: 'string'
+        addedAt: '2026-04-20T21:27:23.798Z'
+        updatedAt: '2026-04-20T21:27:23.798Z'
+        version: 0
+        url: 'https://cdn.example.com/uploads/track123/cover.jpg'
+        contentType: 'image/jpeg'
+        originalName: 'cover.jpg'
+        fileSize: 34872
+      },
+    ]
+    images: {
+      main: [
+        {
+          type: 'original'
+          width: 0
+          height: 0
+          fileSize: 0
+          url: 'string'
+        },
+      ]
+    }
+    tags: [
+      {
+        id: 'string'
+        name: 'string'
+      },
+    ]
+    artists: [
+      {
+        id: 'string'
+        name: 'string'
+      },
+    ]
+    user: {
+      id: 'string'
+      name: 'string'
+    }
+    isPublished: true
+    publishedAt: '2026-04-20T21:27:23.798Z'
+    currentUserReaction: 0
+  }
 }

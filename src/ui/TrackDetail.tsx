@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react'
-import { tracksApi } from '../api/tracksApi.ts'
-import type { TrackType } from '../api/types.ts'
+import { api } from '../api/api.ts'
+import type { TrackDetailsResource } from '../api/types.ts'
 
 type PropsType = {
   trackId: string | null
 }
 
 export const TrackDetail = ({ trackId }: PropsType) => {
-  const [selectedTrack, setSelectedTrack] = useState<TrackType>()
+  const [selectedTrack, setSelectedTrack] = useState<TrackDetailsResource>()
 
   useEffect(() => {
     if (!trackId) {
       return
     }
-    tracksApi.getTrack(trackId).then((res) => setSelectedTrack(res.data.data))
+    api.getTrack(trackId).then((res) => {
+      setSelectedTrack(res.data.data)
+    })
   }, [trackId])
 
   return (

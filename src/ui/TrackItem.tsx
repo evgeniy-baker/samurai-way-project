@@ -1,7 +1,7 @@
-import type { TrackType } from '../api/types.ts'
+import type { TrackListItemResource } from '../api/types.ts'
 
 type PropsType = {
-  track: TrackType
+  track: TrackListItemResource
   onTrackSelected: (trackId: string) => void
   isSelected: boolean
 }

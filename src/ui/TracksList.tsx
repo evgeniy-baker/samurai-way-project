@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { tracksApi } from '../api/tracksApi.ts'
+import { api } from '../api/api.ts'
 import { TrackItem } from './TrackItem.tsx'
-import type { TrackType } from '../api/types.ts'
+import type { TrackListItemResource } from '../api/types.ts'
 
 type PropsType = {
   onTrackSelected: (trackId: string | null) => void
@@ -10,10 +10,12 @@ type PropsType = {
 
 export const TracksList = ({ trackSelected, onTrackSelected }: PropsType) => {
   useEffect(() => {
-    tracksApi.getTracks().then((res) => setTracks(res.data.data)) // Получаем и сетаем загруженные треки
+    api.getTracks().then((res) => {
+      setTracks(res.data.data)
+    }) // Получаем и сетаем загруженные треки
   }, [])
 
-  const [tracks, setTracks] = useState<TrackType[]>([])
+  const [tracks, setTracks] = useState<TrackListItemResource[]>([])
 
   if (tracks === null) {
     return (
