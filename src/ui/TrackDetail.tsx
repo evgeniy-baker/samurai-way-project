@@ -6,23 +6,29 @@ type PropsType = {
   trackId: string | null
 }
 
-export const TrackDetail = ({ trackId }: PropsType) => {
-  const [selectedTrack, setSelectedTrack] = useState<TrackDetailsResource>()
+export const useTrackDetail = ({ trackId }: PropsType) => {
+  const [trackDetails, setTrackDetails] = useState<TrackDetailsResource>()
 
   useEffect(() => {
     if (!trackId) {
       return
     }
     api.getTrack(trackId).then((res) => {
-      setSelectedTrack(res.data.data)
+      setTrackDetails(res.data.data)
     })
   }, [trackId])
+
+  return { trackDetails: trackDetails }
+}
+
+export const TrackDetail = (trackId: PropsType) => {
+  const { trackDetails } = useTrackDetail(trackId)
 
   return (
     <div>
       <h3>Details</h3>
-      {!selectedTrack && 'Track is not selected'}
-      {selectedTrack && <span>{selectedTrack.attributes.title}</span>}
+      {!trackDetails && 'Track is not selected'}
+      {trackDetails && <span>{trackDetails.attributes.title}</span>}
     </div>
   )
 }
