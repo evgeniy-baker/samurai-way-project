@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
-import { api } from '../api/api.ts'
 import { TrackItem } from './TrackItem.tsx'
-import type { TrackListItemResource } from '../api/types.ts'
+import { useTracks } from '../bll/useTracks.ts'
 
 type PropsType = {
   onTrackSelected: (trackId: string | null) => void
@@ -9,39 +7,33 @@ type PropsType = {
 }
 
 export const TracksList = ({ trackSelected, onTrackSelected }: PropsType) => {
-  useEffect(() => {
-    api.getTracks().then((res) => {
-      setTracks(res.data.data)
-    }) // Получаем и сетаем загруженные треки
-  }, [])
-
-  const [tracks, setTracks] = useState<TrackListItemResource[]>([])
+  const { tracks, refresh } = useTracks() // Кастомный хук получения треков
 
   if (tracks === null) {
     return (
       <div>
-        <span>Loading...</span>
-      </div>
-    )
-  }
-  if (tracks.length === 0 || null) {
-    return (
-      <div>
-        <span>Loading...</span>
+        <span> Loading... </span>
       </div>
     )
   }
 
+  const onClickHandler = () => {
+    refresh()
+  }
+
   return (
-    <ul>
-      {tracks.map((track) => (
-        <TrackItem
-          key={track.id}
-          track={track}
-          isSelected={track.id === trackSelected}
-          onTrackSelected={onTrackSelected}
-        />
-      ))}
-    </ul>
+    <div>
+      <button onClick={onClickHandler}>Refresh</button>
+      <ul>
+        {tracks.map((track) => (
+          <TrackItem
+            key={track.id}
+            track={track}
+            isSelected={track.id === trackSelected}
+            onTrackSelected={onTrackSelected}
+          />
+        ))}
+      </ul>
+    </div>
   )
 }
